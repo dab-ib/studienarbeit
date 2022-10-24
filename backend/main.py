@@ -1,15 +1,12 @@
 import asyncio
-from datetime import datetime
-from motiondetection.motiondetector import MotionDetector
-from tinydbconnector import TinyDBConnector
-from models.camera import Camera
+
+import api
 from frameserver import FrameServer
-from websocketserver import WebsocketServer
 from motiondetection.bsmotiondetector import BSMotionDetector
 from motiondetection.motiondetectionresult import MotionDetectionResult
-from motiondetection.persondetector import PersonDetector
 from recorder import Recorder, RecordingTrigger
-import api
+from tinydbconnector import TinyDBConnector
+from websocketserver import WebsocketServer
 
 db = TinyDBConnector('data/db.json')
 frameserver = FrameServer(db)
