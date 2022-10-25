@@ -35,6 +35,6 @@ async def motion_result_handler(result: MotionDetectionResult):
         pass
 
 
-if (__name__ == "__main__"):
+if __name__ == "__main__":
     asyncio.get_event_loop().create_task(run())
     asyncio.get_event_loop().run_forever()
