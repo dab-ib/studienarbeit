@@ -7,6 +7,7 @@ from typing import List
 
 class TinyDBConnector(DBConnector):
     def __init__(self, path: str) -> None:
+        super().__init__()
         self.path = path
         self.__cameras = TinyDB(self.path).table('cameras')
         self.__settings = TinyDB(self.path).table('settings')
