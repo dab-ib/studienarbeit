@@ -28,7 +28,7 @@
         methods: {
         },
         created: function () {
-            this.connection = new WebSocket('ws://localhost:' + this.port)
+            this.connection = new WebSocket('ws://dabib.tech:' + this.port)
             this.connection.onmessage = function (event) {
                 this.loaded = true;
                 const data = JSON.parse(event.data)
