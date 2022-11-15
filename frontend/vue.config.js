@@ -4,7 +4,7 @@ module.exports = {
   ],
   devServer:{
     port: '8080',
-    host: 'dabib.tech',
+    host: 'dabib.hopto.org',
     proxy: process.env.VUE_APP_BACKEND_URL
 
   }
