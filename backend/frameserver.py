@@ -1,5 +1,5 @@
 from dbconnector import DBConnector
-from tinydbconnector import TinyDBConnector
+from mariadbconnecter import MariaDBConnector
 from models.camera import Camera
 from framebuffer import FrameBuffer
 import cv2 as cv

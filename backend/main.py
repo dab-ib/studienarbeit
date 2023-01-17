@@ -5,13 +5,14 @@ from frameserver import FrameServer
 from motiondetection.bsmotiondetector import BSMotionDetector
 from motiondetection.motiondetectionresult import MotionDetectionResult
 from recorder import Recorder, RecordingTrigger
-from tinydbconnector import TinyDBConnector
+from mariadbconnecter import MariaDBConnector
 from websocketserver import WebsocketServer
 
-db = TinyDBConnector('data/db.json')
+db = MariaDBConnector('localhost', 'root', 'password', 'mydatabase')
 frameserver = FrameServer(db)
 websocketserver = WebsocketServer(frameserver)
 recorder = Recorder(frameserver, db)
+
 
 
 async def run():

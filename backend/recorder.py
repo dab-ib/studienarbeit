@@ -1,6 +1,6 @@
 from dbconnector import DBConnector
 from enum import Enum
-from tinydbconnector import TinyDBConnector
+from mariadbconnecter import MariaDBConnector
 from rx.core.typing import Disposable
 from models.camera import Camera
 from frameserver import FrameServer

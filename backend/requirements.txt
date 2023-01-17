@@ -6,5 +6,5 @@ aiortc
 rx
 websockets
 pillow
-tinydb
+mariadb
 imutils
