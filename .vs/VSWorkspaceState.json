@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\backend",
+    "\\frontend",
+    "\\frontend\\src"
   ],
-  "SelectedNode": "\\C:\\Users\\david\\Source\\Repos\\studienarbeitNew",
+  "SelectedNode": "\\frontend\\.env",
   "PreviewInSolutionExplorer": false
 }

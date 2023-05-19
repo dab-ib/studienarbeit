@@ -2,7 +2,6 @@ av
 opencv-python
 asyncio
 aiohttp
-aiohttp-cores
 aiortc
 rx
 websockets
