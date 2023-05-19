@@ -14,15 +14,24 @@ class TinyDBConnector(DBConnector):
 
     def get_cameras(self) -> List[Camera]:
         cameras = []
+
         for data in self.__cameras.all():
-            cam = Camera(data['name'], data['url'])
+            cam = Camera(
+                    data['name'],
+                    data['url'],
+                    data['minimum'],
+                    data['maximum'],
+                    data['threshold'],
+                    data['sensitivity']
+                  )
             cam.id = data['id']
             cameras.append(cam)
         return cameras
 
     def get_camera(self, id: int) -> Camera:
         data = self.__cameras.get(doc_id=id)
-        cam = Camera(data['name'], data['url'])
+        print(data)
+        cam = Camera(data['name'], data['url'],data['minimum'], data['maximum'],data['threshold'],data['sensitivity'])
         cam.id = id
         return cam
 

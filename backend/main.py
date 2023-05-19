@@ -28,9 +28,10 @@ async def run():
 async def motion_result_handler(result: MotionDetectionResult):
     msg = "result from " + result.camera.name + ": " + str(result.motion) + " (Magnitude: " + str(
         result.intensity) + ")"
-    print(msg)
+    print(msg,'-----------------------')
     await websocketserver.broadcast_event("MotionResult", result)
     if result.motion:
+        print(result.camera)
         await recorder.capture_while_motion(result.camera, RecordingTrigger.MOTION, 10)
         pass
 

@@ -38,7 +38,7 @@
         },
         camerasArray() {
           const camerasArray = cameraStoreState.camerasArray
-          return [new Camera(null, "", "", null)].concat(camerasArray);
+          return [new Camera(null, "", "", null,0,0,0,0)].concat(camerasArray);
         }
       },
       methods: {

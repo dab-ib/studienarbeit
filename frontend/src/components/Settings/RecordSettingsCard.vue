@@ -1,7 +1,6 @@
 <template>
     <v-card width="500">
         <v-card-title>Recording</v-card-title>
-
         <v-card-text>
             <v-container fluid>
                 <v-alert
@@ -26,13 +25,13 @@
                         <template v-slot:activator="{ on, attrs }">
                             <v-col cols="12" v-bind="attrs"
                                    v-on="on">
-                                <v-slider
-                                        v-model="settings.frameBufferSize"
-                                        :max="3000"
-                                        :min="100"
-                                        label="Frame Buffer"
-                                        class="align-center"
-                                >
+                                    <v-slider
+                                            v-model="settings.frameBufferSize"
+                                            :max="3000"
+                                            :min="100"
+                                            label="Frame Buffer"
+                                            class="align-center"
+                                    >
                                     <template v-slot:append>
                                         <v-text-field
                                                 v-model="settings.frameBufferSize"

@@ -6,11 +6,13 @@ export default class CameraService {
     apiService = new ApiService()
 
     async addCamera(camera: Camera) {
+        console.log(camera)
         return this.apiService.post("/camera", camera)
             .then(r =>  r.json().then(data => ({status: r.status, body: data})))
             .then((data) => {
                 camera.id = data.body.id
                 cameraStoreMutations.add(camera)
+				console.log(data);
                 return data;
         })
     }
@@ -36,7 +38,16 @@ export default class CameraService {
         return await this.apiService.get("/cameras")
             .then((responseBody) => {
                 responseBody.map((cam: Camera)=>{
-                    cameraArray.push(new Camera(cam.id, cam.name, cam.url, cam.last_motion))
+                    cameraArray.push(new Camera(
+                        cam.id,
+                         cam.name,
+                          cam.url, 
+                          cam.last_motion,
+                          cam.maximum,
+                          cam.minimum,
+                          cam.sensitivity,
+                          cam.threshold
+                          ))
                 })
                 return cameraArray
             }).catch(() => {

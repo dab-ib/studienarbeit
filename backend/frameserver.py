@@ -36,6 +36,11 @@ class FrameServer:
         container = av.open(cam.url, mode="r", options={'rtsp_transport':'tcp'})
         last_pts = 0
         for packet in container.demux(container.streams.video[0]):
+            print(packet)
+	
+            for frame in packet.decode():		
+                print(frame,'fran')
+       
             if not isinstance(packet.pts, int):
                 continue
             if packet.pts > last_pts:

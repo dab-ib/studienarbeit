@@ -7,7 +7,7 @@ from models.camera import Camera
 from framebuffer import FrameBuffer
 import cv2
 import asyncio
-
+import datetime
 """
 Analyzes Video-Frames using Background-Subtraction Method
 """
@@ -49,6 +49,10 @@ class BSMotionDetector(MotionDetector):
             boxes = []
             # If contour is smaller than the minimum specified area it does not represent
             #  significant motion and should thus be ignored
-            if cv2.contourArea(contour) > 500:
-                return MotionDetectionResult(True, 500, camera, boxes)
+            if cv2.contourArea(contour) < 9000:
+                continue
+            print('mtav')
+            print(frame)
+                # pass
+            # return MotionDetectionResult(True, 5000, camera )
         return MotionDetectionResult(False, 0, camera)

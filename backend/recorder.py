@@ -55,18 +55,20 @@ class Recorder:
             return
 
         self.start_capture(cam, trigger, True)
-        while True:
-            await asyncio.sleep(1)
-            now = datetime.now()
-            last_motion = self.__recording[cam.id].last_motion
-            if last_motion is not None and (now - last_motion).seconds > threshold:
-                break
+
+        # return
+        # while True:
+        await asyncio.sleep(10)
+        #     now = datetime.now()
+        #     last_motion = self.__recording[cam.id].last_motion
+        #     if last_motion is not None and (now - last_motion).seconds > threshold:
+        #         break
         self.stop_capture(cam)
 
     def __generate_name(self, cam: Camera, trigger: RecordingTrigger) -> str:
         dateTimeObj = datetime.now()
         timestampStr = dateTimeObj.strftime("%d-%m-%Y_%H-%M-%S")
-        return self.__db.get_settings().video_path + str(cam.id) + "_" + timestampStr + "_" + str(trigger) + ".mp4"
+        return self.__db.get_settings().video_path + str(cam.id) + "_" + timestampStr + "_"+ ".mp4"
 
 class ActiveRecording:
     def __init__(self, writer: VideoWriter, subscription: Disposable, last_motion: datetime) -> None:

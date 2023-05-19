@@ -13,6 +13,7 @@ import json
 from base64 import b64encode
 import io
 import asyncio
+import aiohttp_cors
 
 frameserver = None
 db = None
@@ -26,20 +27,32 @@ async def test(request):
     return web.Response(content_type="text/html", text=content)
 
 async def save(request):
-    buffer = frameserver.get_buffer("test")
-    writer = VideoWriter("/home/hannes/Projekte/studienarbeit/test/out.mp4")
-    writer.open()
-    writer.write_packets(buffer.get_packets())
-    subscription = buffer.get_observable().subscribe(on_next=lambda p: writer.write_packet(p))
-    await asyncio.sleep(10)
-    subscription.dispose()
-    writer.close()
+    buffer = frameserver.get_buffer(3)
 
-    last = buffer.get_packets()[-1]
-    if (last == None):
-        return web.Response(content_type="text/html", text="No Frame")
+
+    writer = VideoWriter("/media/dev/dd8e2376-c302-463c-85b7-cac678a58ba1/project/5953/studienarbeit/backend/test/out.mp4")
+    writer.open()
+    print('---+++++++++----')
+
+    writer.write_packets(buffer.get_packets())
+    # subscription = buffer.get_observable().subscribe(on_next=lambda p: writer.write_packet(p))
+    await asyncio.sleep(10)
+    # subscription.dispose()
+    writer.close()
+    print('---42----')
+
+    # last = buffer.get_packets()[-1]
+    # if (last == None):
+    #     return web.Response(content_type="text/html", text="No Frame")
+    
+    return web.Response(
+        content_type="application/json",
+        text=json.dumps(
+            {"sdp": "ssss"}
+        ),
+    )
     output = io.BytesIO()
-    frame = last.decode()[0].to_image()
+    frame = last.decode()[0]
     frame.save(output, format='PNG')
     output.seek(0)
     output_s = output.read()
@@ -139,7 +152,15 @@ async def offer(request):
 
 async def addCamera(request):
     params = await request.json()
-    cam = Camera(params['name'], params['url'])
+    cam = Camera(
+        params['name'],
+        params['url'],
+        params['minimum'],
+        params['maximum'],
+        params['threshold'],
+        params['sensitivity'],
+
+    )
     id = db.insert_camera(cam)
     cam.id = id
     db.update_camera(id, cam)
@@ -152,6 +173,18 @@ async def updateCamera(request):
     old_cam = db.get_camera(cam['id'])
     if cam['name'] != old_cam.name and len(cam['name']) > 0:
         old_cam.name = cam['name']
+
+    if cam['minimum'] != old_cam.minimum and cam['minimum'] > 0:
+        old_cam.minimum = cam['minimum']
+    if cam['maximum'] != old_cam.maximum and cam['maximum'] > 0:
+        old_cam.maximum = cam['maximum']
+        
+    if cam['threshold'] != old_cam.threshold and cam['threshold'] > 0:
+        old_cam.threshold = cam['threshold']
+
+    if cam['sensitivity'] != old_cam.sensitivity and cam['sensitivity'] > 0:
+        old_cam.name = cam['sensitivity']
+        
 
     db.update_camera(cam['id'], old_cam)
     return web.Response(status=201)
@@ -195,7 +228,9 @@ async def run(fs: FrameServer, database: DBConnector):
     frameserver = fs
     db = database
 
+
     app = web.Application()
+
     app.router.add_get("/", multi)
     app.router.add_get("/test", test)
     app.router.add_get("/save", save)
