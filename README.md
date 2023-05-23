@@ -23,5 +23,5 @@
 
 # Maßnahmen zum Testen der Bewegungserkennungsmethoden
 - def motion_detection der Testdatei in motiondetection/bsmotiondetector.py einfügen
-ODER (besser => in der Studienarbeit verwendet)
+## ODER (besser => in der Studienarbeit verwendet)
 - in main.py einbinden hier ist bereits eine Methode async def motion_result_handler(result: MotionDetectionResult)
